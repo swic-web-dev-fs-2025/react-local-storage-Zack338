@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-
 import useTodos from "./hooks/useTodos";
 import "./App.css";
 
