@@ -20,7 +20,7 @@ function useTodos() {
   const handleKeyPress = (e) => {
     if (e.key === "Enter") addTodo();
   };
->>>>>>> 943cc8538ae4f93003350759ea5d8f85794a178d
+
 
   return { todos, text, setText, addTodo, handleKeyPress };
 }
@@ -30,11 +30,11 @@ export default function App() {
 
   return (
     <div className="App">
-<<<<<<< HEAD
+
       <h1>Persistent Todo App</h1>
-=======
+
       <h1>Persistent Todo App 📝</h1>
->>>>>>> 943cc8538ae4f93003350759ea5d8f85794a178d
+
 
       <div className="input-section">
         <input
