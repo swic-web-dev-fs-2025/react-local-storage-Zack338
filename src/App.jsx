@@ -3,11 +3,9 @@ import "./App.css";
 
 export default function App() {
   const { todos, text, setText, addTodo, handleKeyPress } = useTodos();
-
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { useState } from "react";
 
-import "./App.css";
 
 function useTodos() {
   const [todos, setTodos] = useLocalStorage("todos", []);
