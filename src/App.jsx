@@ -1,35 +1,42 @@
-import { useState } from "react";
 import { useLocalStorage } from "@uidotdev/usehooks";
+import { useState } from "react";
+
 import "./App.css";
 
-export default function App() {
-  // useLocalStorage hook automatically syncs todos with localStorage
+function useTodos() {
   const [todos, setTodos] = useLocalStorage("todos", []);
   const [text, setText] = useState("");
 
-  const handleAdd = () => {
-    if (text.trim() === "") return;
+  const addTodo = () => {
+    if (!text.trim()) return; 
     const newTodo = { id: Date.now(), text: text.trim() };
     setTodos([...todos, newTodo]);
     setText("");
   };
 
   const handleKeyPress = (e) => {
-    if (e.key === "Enter") handleAdd();
+    if (e.key === "Enter") addTodo();
   };
+
+  return { todos, text, setText, addTodo, handleKeyPress };
+}
+
+export default function App() {
+  const { todos, text, setText, addTodo, handleKeyPress } = useTodos();
 
   return (
     <div className="App">
       <h1>Persistent Todo App 📝</h1>
+
       <div className="input-section">
         <input
           type="text"
           placeholder="Add a new todo..."
           value={text}
           onChange={(e) => setText(e.target.value)}
-          onKeyPress={handleKeyPress}
+          onKeyDown={handleKeyPress}
         />
-        <button onClick={handleAdd}>Add</button>
+        <button onClick={addTodo}>Add</button>
       </div>
 
       <ul className="todo-list">
