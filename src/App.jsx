@@ -1,40 +1,46 @@
 import { useState } from "react";
-
+import { useLocalStorage } from "@uidotdev/usehooks";
 import "./App.css";
-import reactLogo from "./assets/react.svg";
-
-import viteLogo from "/vite.svg";
 
 export default function App() {
-  // Array destructuring assignment
-  const [count, setCount] = useState(0);
+  // useLocalStorage hook automatically syncs todos with localStorage
+  const [todos, setTodos] = useLocalStorage("todos", []);
+  const [text, setText] = useState("");
+
+  const handleAdd = () => {
+    if (text.trim() === "") return;
+    const newTodo = { id: Date.now(), text: text.trim() };
+    setTodos([...todos, newTodo]);
+    setText("");
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") handleAdd();
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="App">
+      <h1>Persistent Todo App 📝</h1>
+      <div className="input-section">
+        <input
+          type="text"
+          placeholder="Add a new todo..."
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          onKeyPress={handleKeyPress}
+        />
+        <button onClick={handleAdd}>Add</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button
-          onClick={() => {
-            setCount((prevCount) => prevCount + 1);
-          }}
-        >
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+
+      <ul className="todo-list">
+        {todos.map((todo) => (
+          <li key={todo.id}>{todo.text}</li>
+        ))}
+      </ul>
+
+      <p className="note">
+        Refresh the page — your todos are still here thanks to localStorage!
       </p>
-    </>
+    </div>
   );
 }
