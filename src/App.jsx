@@ -26,7 +26,7 @@ export default function App() {
       </ul>
 
       <p className="note">
-        Refresh the page—your todos are still here thanks to localStorage!
+        Refresh the page your todos are still here thanks to localStorage!
       </p>
     </div>
   );
