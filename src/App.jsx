@@ -3,7 +3,7 @@ import "./App.css";
 
 export default function App() {
   const { todos, text, setText, addTodo, handleKeyPress } = useTodos();
-=======
+
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { useState } from "react";
 
